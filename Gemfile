@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -8,6 +8,8 @@ gem 'rails', '3.2.12'
 gem 'sqlite3'
 
 gem 'json'
+gem 'cancan'
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,3 +39,12 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug'
+
+group :development, :test do
+  gem 'magic_encoding' # for create encoding UTF-8 hack to Ruby 1.9
+  gem 'thin'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'brakeman', :require => false
+end
