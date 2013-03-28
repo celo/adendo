@@ -40,14 +40,15 @@ gem 'jquery-rails'
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.0.1'
-  gem 'factory_girl_rails'
+  #gem 'factory_girl_rails'
   gem 'magic_encoding' # for create encoding UTF-8 hack to Ruby 1.9
   gem 'thin'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'meta_request'
+  #gem 'better_errors'
+  #gem 'binding_of_caller'
+  #gem 'meta_request'
   gem 'brakeman', :require => false
 end
 
 group :test do
+  gem 'shoulda-matchers'
 end
