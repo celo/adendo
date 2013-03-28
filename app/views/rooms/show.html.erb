@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @room.name %>
+</p>
+
+<p>
+  <b>Letters:</b>
+  <%= @room.letters %>
+</p>
+
+<p>
+  <b>Maxplayers:</b>
+  <%= @room.maxplayers %>
+</p>
+
+<p>
+  <b>Maxmatches:</b>
+  <%= @room.maxmatches %>
+</p>
+
+<p>
+  <b>Maxmatchtime:</b>
+  <%= @room.maxmatchtime %>
+</p>
+
+<p>
+  <b>Private:</b>
+  <%= @room.private %>
+</p>
+
+
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>
