@@ -7,5 +7,5 @@ describe Room do
   it 'should have a limit of time on match'
   it 'should have a list of valid letters to raffle'
   it 'should be private'
-  it 'should have a creator to adminitrate these options'
+  it 'should have a creator to set options on room creation'
 end
