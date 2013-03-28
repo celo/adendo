@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe User do
-  it 'should have a name'
-  it 'should have a e-mail'
-  it 'should have a password'
+  context 'validates' do
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :email }
+    it { should validate_presence_of :password }
+  end
 end

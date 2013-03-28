@@ -8,6 +8,8 @@ describe RoomColumn do
     it { should respond_to :room_id }
     it { should respond_to :value }
   end
+  context 'validates' do
+    it { should validate_presence_of :value }
+  end
 
-  it 'should have a value'
 end

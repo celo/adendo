@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Column do
-  it 'should have a value'
+  context 'validates' do
+    it { should validate_presence_of :value }
+  end
 end
