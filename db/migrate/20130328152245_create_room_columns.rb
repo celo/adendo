@@ -1,7 +1,7 @@
 class CreateRoomColumns < ActiveRecord::Migration
   def change
     create_table :room_columns do |t|
-      t.string :value
+      t.string :name
       t.references :room
 
       t.timestamps

@@ -8,6 +8,7 @@ class CreateRooms < ActiveRecord::Migration
       t.integer :maxmatchtime
       t.boolean :private
 
+      t.integer :created_by
       t.timestamps
     end
   end

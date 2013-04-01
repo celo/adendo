@@ -1,4 +1,4 @@
 class RoomColumn < ActiveRecord::Base
   belongs_to :room
-  attr_accessible :value
+  attr_accessible :name
 end

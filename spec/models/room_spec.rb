@@ -23,7 +23,7 @@ describe Room do
   end
 
   it 'should not have numbers in list of valid letters to raffle' do
-    @room = Room.new(:letters => "1")
+    @room = FactoryGirl.create(:room, :letters => "1")
     @room.save.should be_false
   end
 

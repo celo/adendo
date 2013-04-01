@@ -3,8 +3,8 @@ class CreateRoomMatches < ActiveRecord::Migration
     create_table :room_matches do |t|
       t.references :room
       t.string :letter
-      t.datetime :start_time
-      t.datetime :stop_time
+      t.datetime :started_at
+      t.datetime :stopped_at
 
       t.timestamps
     end

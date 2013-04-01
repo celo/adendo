@@ -1,12 +1,13 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :room do
-    name "MyString"
-    letters "MyString"
-    maxplayers 1
-    maxmatches 1
-    maxmatchtime 1
-    private false
+  factory :room do |f|
+    f.sequence(:name) { |n| "Room #{n}" }
+    f.letters "A, B, C, D, E"
+    f.maxplayers 10
+    f.maxmatches 10
+    f.maxmatchtime 10
+    f.private false
+    f.association(:created_by, :factory => :user)
   end
 end

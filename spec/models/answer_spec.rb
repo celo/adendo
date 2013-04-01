@@ -15,7 +15,10 @@ describe Answer do
   end
 
 
-  it 'should have a value informed by a room player'
+  it 'should have a value informed by a room player' do
+    user = FactoryGirl.create(:user)
+    answer = FactoryGirl.create(:answer)
+  end
   it 'should have the score 0, 5 or 10 points'
   it 'should not save values when match has not started'
   it 'should not save values when match has stopped'

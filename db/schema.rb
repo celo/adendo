@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328195217) do
+ActiveRecord::Schema.define(:version => 20130328182831) do
 
   create_table "answers", :force => true do |t|
     t.integer  "room_player_id"
@@ -28,13 +28,13 @@ ActiveRecord::Schema.define(:version => 20130328195217) do
   add_index "answers", ["room_player_id"], :name => "index_answers_on_room_player_id"
 
   create_table "columns", :force => true do |t|
-    t.string   "value"
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "room_columns", :force => true do |t|
-    t.string   "value"
+    t.string   "name"
     t.integer  "room_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20130328195217) do
   create_table "room_matches", :force => true do |t|
     t.integer  "room_id"
     t.string   "letter"
-    t.datetime "start_time"
-    t.datetime "stop_time"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(:version => 20130328195217) do
     t.integer  "maxmatches"
     t.integer  "maxmatchtime"
     t.boolean  "private"
+    t.integer  "created_by"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "created_by"
   end
 
   create_table "users", :force => true do |t|
