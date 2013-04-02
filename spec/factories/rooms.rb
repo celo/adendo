@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :room do |f|
     f.sequence(:name) { |n| "Room #{n}" }
-    f.letters "A, B, C, D, E"
+    f.letters "ABCDE"
     f.maxplayers 10
     f.maxmatches 10
     f.maxmatchtime 10

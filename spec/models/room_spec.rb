@@ -16,15 +16,15 @@ describe Room do
     it { should validate_presence_of :maxmatches }
     it { should validate_presence_of :maxmatchtime }
     it { should validate_presence_of :letters }
-    it { should validate_presence_of :created_by }
+    # it { should validate_presence_of :created_by }
     it { should validate_numericality_of :maxplayers }
     it { should validate_numericality_of :maxmatches }
     it { should validate_numericality_of :maxmatchtime }
   end
 
   it 'should not have numbers in list of valid letters to raffle' do
-    @room = FactoryGirl.create(:room, :letters => "1")
-    @room.save.should be_false
+    @room = Room.new(:letters => "1")
+    @room.should have(1).error_on(:letters)
   end
 
 end
