@@ -6,5 +6,5 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :player_id, :match_id, :column_id, :value
 
-  
+
 end

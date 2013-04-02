@@ -22,6 +22,8 @@ describe Answer do
   end
 
   before do
+    @time_now = Time.now
+    Time.stub!(:now).and_return(@time_now)
     @room = FactoryGirl.create(:room)
     @match = FactoryGirl.create(:match, :room => @room)
   end
@@ -44,7 +46,7 @@ describe Answer do
   end
 
   it 'should not save values when Match has finished (stopped_at less then now)' do
-    match = FactoryGirl.create(:match, :room => @room, :letter => "B", :stopped_at => 1.second.ago)
+    match = FactoryGirl.create(:match, :room => @room, :letter => "B", :stopped_at => @time_now - 1.second)
     answer = FactoryGirl.create(:answer, :match => match)
     answer.save.should be_false
   end
