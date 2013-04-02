@@ -1,6 +1,6 @@
 class Answer < ActiveRecord::Base
-  belongs_to :room_player
-  belongs_to :room_match
-  belongs_to :room_column
+  belongs_to :player
+  belongs_to :match
+  belongs_to :column
   attr_accessible :score, :value
 end

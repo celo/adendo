@@ -14,35 +14,35 @@
 ActiveRecord::Schema.define(:version => 20130328182831) do
 
   create_table "answers", :force => true do |t|
-    t.integer  "room_player_id"
-    t.integer  "room_match_id"
-    t.integer  "room_column_id"
+    t.integer  "player_id"
+    t.integer  "match_id"
+    t.integer  "column_id"
     t.string   "value"
     t.integer  "score"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  add_index "answers", ["room_column_id"], :name => "index_answers_on_room_column_id"
-  add_index "answers", ["room_match_id"], :name => "index_answers_on_room_match_id"
-  add_index "answers", ["room_player_id"], :name => "index_answers_on_room_player_id"
-
-  create_table "columns", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "room_columns", :force => true do |t|
+  add_index "answers", ["column_id"], :name => "index_answers_on_column_id"
+  add_index "answers", ["match_id"], :name => "index_answers_on_match_id"
+  add_index "answers", ["player_id"], :name => "index_answers_on_player_id"
+
+  create_table "columns", :force => true do |t|
     t.string   "name"
     t.integer  "room_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "room_columns", ["room_id"], :name => "index_room_columns_on_room_id"
+  add_index "columns", ["room_id"], :name => "index_columns_on_room_id"
 
-  create_table "room_matches", :force => true do |t|
+  create_table "default_columns", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "matches", :force => true do |t|
     t.integer  "room_id"
     t.string   "letter"
     t.datetime "started_at"
@@ -51,17 +51,17 @@ ActiveRecord::Schema.define(:version => 20130328182831) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "room_matches", ["room_id"], :name => "index_room_matches_on_room_id"
+  add_index "matches", ["room_id"], :name => "index_matches_on_room_id"
 
-  create_table "room_players", :force => true do |t|
+  create_table "players", :force => true do |t|
     t.integer  "room_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "room_players", ["room_id"], :name => "index_room_players_on_room_id"
-  add_index "room_players", ["user_id"], :name => "index_room_players_on_user_id"
+  add_index "players", ["room_id"], :name => "index_players_on_room_id"
+  add_index "players", ["user_id"], :name => "index_players_on_user_id"
 
   create_table "rooms", :force => true do |t|
     t.string   "name"

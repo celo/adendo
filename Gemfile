@@ -39,7 +39,7 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 group :development, :test do
-  gem 'rspec-rails', '>= 2.0.1'
+  gem 'rspec-rails'
   gem 'magic_encoding' # for create encoding UTF-8 hack to Ruby 1.9
   gem 'thin'
   #gem 'better_errors'

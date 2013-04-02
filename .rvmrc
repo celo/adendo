@@ -1,1 +1,1 @@
-rvm use uby-1.9.3-p374@adendo --create
+rvm use ruby-1.9.3-p374@adendo --create

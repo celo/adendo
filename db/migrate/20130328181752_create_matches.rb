@@ -1,6 +1,6 @@
-class CreateRoomMatches < ActiveRecord::Migration
+class CreateMatches < ActiveRecord::Migration
   def change
-    create_table :room_matches do |t|
+    create_table :matches do |t|
       t.references :room
       t.string :letter
       t.datetime :started_at
@@ -8,6 +8,6 @@ class CreateRoomMatches < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :room_matches, :room_id
+    add_index :matches, :room_id
   end
 end
