@@ -23,8 +23,8 @@ describe Room do
   end
 
   it 'should not have numbers in list of valid letters to raffle' do
-    @room = Room.new(:letters => "1")
-    @room.should have(1).error_on(:letters)
+    room = Room.new(:letters => "1")
+    room.should have(1).error_on(:letters)
   end
 
 end

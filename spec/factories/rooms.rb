@@ -2,12 +2,12 @@
 
 FactoryGirl.define do
   factory :room do |f|
-    f.sequence(:name) { |n| "Room #{n}" }
-    f.letters "ABCDE"
-    f.maxplayers 10
-    f.maxmatches 10
-    f.maxmatchtime 10
-    f.private false
-    f.association(:created_by, :factory => :user)
+    sequence(:name) { |n| "Room #{n}" }
+    letters "ABCDE"
+    maxplayers 10
+    maxmatches 10
+    maxmatchtime 10
+    private false
+    association(:created_by, :factory => :user)
   end
 end
