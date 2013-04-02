@@ -33,14 +33,16 @@ describe Match do
     context '.stop!' do
       before { match.stop! }
       it 'should save the stop time when stops' do
-        match.stopped_at.should_not be_nil
+        match.stopped_at.should == Time.now
       end
     end
   end
 
 
-  it 'should automatically end when room pre-defined time limit is over' do
-    pending
+  it 'should automatically save stop time at room pre-defined time limit' do
+    room = FactoryGirl.create(:room, :maxmatchtime => 5)
+    match = FactoryGirl.create(:match, :room => room)
+    match.stopped_at.should == 5.minutes.from_now
   end
 
 end

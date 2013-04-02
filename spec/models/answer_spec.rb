@@ -21,11 +21,6 @@ describe Answer do
     it { should allow_value("nil 0 5 10").for(:score) }
   end
 
-
-  it 'should have a player from room players list'
-  it 'should have a column from room columns list'
-  it 'should have a value informed by a room player'
-
   describe 'scoring' do
     it 'should have the score equals nil before evaluate values' do
       answer = FactoryGirl.create(:answer)
@@ -44,7 +39,7 @@ describe Answer do
     answer.save.should be_false
   end
 
-  it 'should not save values when Match has stopped' do
+  it 'should not save values when Match has finished (stopped_at less then now)' do
     match = FactoryGirl.create(:match, :stopped_at => 1.second.ago)
     answer = FactoryGirl.create(:answer, :match => match)
     answer.save.should be_false
