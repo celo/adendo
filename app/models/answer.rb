@@ -5,4 +5,6 @@ class Answer < ActiveRecord::Base
   attr_accessible :score, :value
 
   validates_presence_of :player_id, :match_id, :column_id, :value
+
+  
 end

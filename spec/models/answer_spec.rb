@@ -21,26 +21,30 @@ describe Answer do
     it { should allow_value("nil 0 5 10").for(:score) }
   end
 
+  before do
+    @room = FactoryGirl.create(:room)
+    @match = FactoryGirl.create(:match, :room => @room)
+  end
+
   describe 'scoring' do
     it 'should have the score equals nil before evaluate values' do
-      answer = FactoryGirl.create(:answer)
+      answer = FactoryGirl.create(:answer, :match => @match)
       answer.save.should be_true
     end
 
     it 'should have the score equals 0, 5 or 10 points after evaluate values' do
-      answer = FactoryGirl.create(:answer, :score => 1)
+      answer = FactoryGirl.create(:answer, :match => @match, :score => 1)
       answer.save.should be_false
     end
   end
 
   it 'should not save values when Match has not started' do
-    match = FactoryGirl.create(:match)
-    answer = FactoryGirl.create(:answer, :match => match)
+    answer = FactoryGirl.create(:answer, :match => @match)
     answer.save.should be_false
   end
 
   it 'should not save values when Match has finished (stopped_at less then now)' do
-    match = FactoryGirl.create(:match, :stopped_at => 1.second.ago)
+    match = FactoryGirl.create(:match, :room => @room, :letter => "B", :stopped_at => 1.second.ago)
     answer = FactoryGirl.create(:answer, :match => match)
     answer.save.should be_false
   end
