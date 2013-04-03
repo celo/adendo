@@ -30,10 +30,10 @@ describe Match do
   end
 
 
-  describe 'play status' do
+  describe 'action' do
     before do
-      @time_now = Time.now
-      Time.stub!(:now).and_return(@time_now)
+      new_time = Time.local(2008, 9, 1, 12, 0, 0)
+      Timecop.freeze(new_time)
       @room = FactoryGirl.create(:room, :letters => 'ABCD', :maxmatchtime => 5)
     end
     subject { FactoryGirl.create(:match, :room => @room) }
@@ -42,8 +42,8 @@ describe Match do
       subject.started_at.should be_nil
     end
 
-    it 'should automatically save stop time at room pre-defined time limit' do
-      subject.stopped_at.should == @time_now + 5.minutes
+    it 'should not have stop time before start' do
+      subject.stopped_at.should be_nil
     end
 
     context '.start!' do
@@ -52,17 +52,45 @@ describe Match do
         subject.started_at.should_not be_nil
       end
       it 'should start time be now when start match' do
-        subject.started_at.should == @time_now
+        subject.started_at.should == Time.now
+      end
+      it 'should automatically save stop time at room pre-defined time limit based on start time' do
+        subject.stopped_at.should == subject.started_at + 5.minutes
+      end
+      it 'should not save start time if match has previously started' do
+        Timecop.freeze(Time.now + 2.seconds)
+        subject.start!
+        subject.started_at.should_not == Time.now
+      end
+      it 'should not save start time if match has finished' do
+        subject.stop!
+        Timecop.freeze(Time.now + 2.seconds)
+        subject.start!
+        subject.started_at.should_not == Time.now
       end
     end
     context '.stop!' do
-      before { subject.stop! }
-      it 'should save the stop time when stops' do
-        subject.stopped_at.should == @time_now
+      it 'should not save the stop time when match has not started' do
+        subject.stop!
+        subject.stopped_at.should_not == Time.now
       end
+      it 'should save the stop time when stops' do
+        subject.start!
+        Timecop.freeze(Time.now + 2.seconds)
+        subject.stop!
+        subject.stopped_at.should == Time.now
+      end
+      it 'should not save the stop time when match has previously finished' do
+        subject.start!
+        Timecop.freeze(Time.now + 2.seconds)
+        subject.stop!
+        Timecop.freeze(Time.now + 2.seconds)
+        subject.stop!
+        subject.stopped_at.should_not == Time.now
+      end
+      it 'should not save the stop time if player has not completed all answers'
     end
   end
-
 
 
 end

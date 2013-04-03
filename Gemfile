@@ -46,6 +46,8 @@ group :development, :test do
   #gem 'binding_of_caller'
   #gem 'meta_request'
   gem 'brakeman', :require => false
+  gem 'pry'
+  gem 'timecop'
 end
 
 group :test do

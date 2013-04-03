@@ -5,25 +5,32 @@ class Match < ActiveRecord::Base
 
   validate :validate_letter_in_room
 
-  after_create :set_automatic_stop
-
 
   def start!
-    self.update_attribute(:started_at, Time.now)
+    if !started? && !stopped?
+      self.update_attribute(:started_at, Time.now)
+      self.update_attribute(:stopped_at, room.maxmatchtime.minutes.from_now)
+    end
   end
 
   def stop!
-    self.update_attribute(:stopped_at, Time.now)
+    if started? && !stopped?
+      self.update_attribute(:stopped_at, Time.now)
+    end
+  end
+
+  def started?
+    !started_at.nil?
+  end
+
+  def stopped?
+    !stopped_at.nil? && stopped_at < Time.now
   end
 
   private
 
   def validate_letter_in_room
     errors.add(:letter) if !room.letters.include?(self.letter) || room.matches.where(:letter => self.letter).size > 0
-  end
-
-  def set_automatic_stop
-    self.update_attribute(:stopped_at, room.maxmatchtime.minutes.from_now)
   end
 
 end
