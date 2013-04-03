@@ -37,7 +37,8 @@ describe Answer do
     end
     it 'should have the score equals nil before evaluate values' do
       answer = Answer.new(:match => @match, :player => @player, :column => @column, :value => "AA", :score => nil)
-      answer.save.should be_true
+      answer.save
+      answer.score.should be_nil
     end
 
     it 'should not update score points before match stops' do
@@ -61,6 +62,9 @@ describe Answer do
     it 'should not update the score if differs from 0, 5 or 10 points' do
       answer = Answer.new(:match => @match, :player => @player, :column => @column, :value => "AA", :score => nil)
       answer.save!
+      Timecop.freeze(Time.now + 2.seconds)
+      @match.stop!(@player)
+      Timecop.freeze(Time.now + 2.seconds)
       answer.score = 1
       answer.save.should be_false
     end
