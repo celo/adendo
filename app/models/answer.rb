@@ -17,7 +17,7 @@ class Answer < ActiveRecord::Base
   end
 
   def check_stop_time
-    errors.add(:match_id) if match.stopped?
+   errors.add(:match_id) if match.stopped?
   end
 
   def check_stopped_match

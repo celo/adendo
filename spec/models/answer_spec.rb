@@ -2,13 +2,12 @@ require 'spec_helper'
 
 describe Answer do
   before do
-    new_time = Time.local(2008, 9, 1, 12, 0, 0)
-    Timecop.freeze(new_time)
+    Timecop.freeze
     user = FactoryGirl.create(:user)
     @room = FactoryGirl.create(:room)
-    @player = FactoryGirl.create(:player, :user => user)
-    @column = FactoryGirl.create(:column)
-    @match = FactoryGirl.create(:match, :room => @room)
+    @player = FactoryGirl.create(:player, :user => user, :room => @room)
+    @column = FactoryGirl.create(:column, :room => @room)
+    @match = FactoryGirl.create(:match, :room => @room, :letter => "B")
   end
 
   context "associations" do
@@ -53,7 +52,7 @@ describe Answer do
       answer = Answer.new(:match => @match, :player => @player, :column => @column, :value => "AA", :score => nil)
       answer.save!
       Timecop.freeze(Time.now + 2.seconds)
-      @match.stop!
+      @match.stop!(@player)
       Timecop.freeze(Time.now + 2.seconds)
       answer.score = 0
       answer.save.should be_true
@@ -76,11 +75,13 @@ describe Answer do
 
   it 'should not save values when Match has finished (stopped_at less then now)' do
     @match.start!
+    answer1 = Answer.new(:match => @match, :player => @player, :column => @column, :value => "AA", :score => nil)
+    answer1.save!
     Timecop.freeze(Time.now + 2.seconds)
-    @match.stop!
+    @match.stop!(@player)
     Timecop.freeze(Time.now + 1.seconds)
-    answer = Answer.new(:match => @match, :player => @player, :column => @column, :value => "AA", :score => nil)
-    answer.save.should be_false
+    answer2 = Answer.new(:match => @match, :player => @player, :column => @column, :value => "AB", :score => nil)
+    answer2.save.should be_false
   end
 
 end

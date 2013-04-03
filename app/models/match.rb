@@ -3,7 +3,8 @@ class Match < ActiveRecord::Base
   has_many :answers
   attr_accessible :room, :letter, :started_at, :stopped_at
 
-  validate :validate_letter_in_room
+  validate :validate_letter_in_room_on_create, :on => :create
+  validate :validate_letter_in_room_on_update, :on => :update
 
 
   def start!
@@ -13,8 +14,8 @@ class Match < ActiveRecord::Base
     end
   end
 
-  def stop!
-    if started? && !stopped?
+  def stop!(player)
+    if started? && !stopped? && complete?(player)
       self.update_attribute(:stopped_at, Time.now)
     end
   end
@@ -27,10 +28,18 @@ class Match < ActiveRecord::Base
     !stopped_at.nil? && stopped_at < Time.now
   end
 
+  def complete?(player)
+    answers.where(:player_id => player).count == room.columns.count
+  end
+
   private
 
-  def validate_letter_in_room
+  def validate_letter_in_room_on_create
     errors.add(:letter) if !room.letters.include?(self.letter) || room.matches.where(:letter => self.letter).size > 0
+  end
+
+  def validate_letter_in_room_on_update
+    errors.add(:letter) if !room.letters.include?(self.letter) || room.matches.where(:letter => self.letter).size > 1
   end
 
 end
